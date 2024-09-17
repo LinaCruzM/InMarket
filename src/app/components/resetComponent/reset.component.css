@@ -1,0 +1,175 @@
+.box {
+    position: relative;
+    width: 100%;
+    height: 83vh;
+    background-color: whitesmoke;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 22px -6px rgba(0,0,0,0.52);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .inner-box {
+    position: absolute;
+    width: calc(100% - 4.5rem);
+    height: calc(100% - 4.5rem);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .img {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    top: 0;
+    left: 0;
+    background-image: url("/assets/images/sidenav.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top 50%;
+    border-radius: 1rem;
+  }
+  
+  .forms-wrap {
+    position: absolute;
+    height: 100%;
+    width: 60%;
+    top: 0;
+    left: 40%;
+    text-align: center;
+  }
+  
+  .actual-form {
+    width: 80%;
+  }
+  
+  .reset-form {
+    max-width: 90%;
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .logo img {
+    width: 170px;
+  }
+  
+  .heading h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #001324;
+  }
+  
+  .heading h6 {
+    color: #929292;
+    font-weight: 400;
+    font-size: .9rem;
+    margin-bottom: 1rem;
+    display: inline;
+    margin-right: .2rem;
+  }
+  
+  .toggle {
+    color: #023059;
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+  
+  .toggle:hover {
+    color: #049DD9;
+  }
+  
+  .input-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 37px;
+    margin-bottom: 2rem;
+    margin-top: .8rem;
+    position: relative;
+  }
+  
+  .input-field {
+    width: 80%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #929292;
+    background: none;
+    font-size: 0.95rem;
+    color: #151111;
+    padding: 0;
+    transition: .4s;
+  }
+  
+  .label {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.95rem;
+    color: #929292;
+    pointer-events: none;
+    transition: 0.4s;
+  }
+  
+  .input-field.active + .label,
+  .input-field.has-content + .label {
+    font-size: .75rem;
+    top: -10px;
+  }
+  
+  .input-field.active,
+  .input-field.has-content {
+    border-bottom: 2px solid #049DD9;
+  }
+  
+  .reset-btn {
+    display: inline-block;
+    width: 80%;
+    height: 43px;
+    background-color: #033E8C;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-size: .9rem;
+    transition: 0.3s;
+  }
+  
+  .reset-btn:hover {
+    background-color: #049DD9;
+  }
+  
+  .eye-btn {
+    height: 20px;
+    margin-left: -20px;
+    padding: 0;
+    color: #929292;
+    cursor: pointer;
+  }
+  
+  .modal-img {
+    margin: 0;
+    height: 105px;
+  }
+  
+  .modal-title {
+    margin: 10px 0;
+    color: #000a24;
+  }
+  
+  .error-msg {
+    text-align: center;
+    margin: 5px 0;
+  }
+  

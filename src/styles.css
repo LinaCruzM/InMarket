@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+*, 
+*::after, 
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+a{
+  text-decoration: none;
+}
+
+.main {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-image: url("/assets/images/fondo-login.png");
+  background-size: cover;
+  padding: 2rem 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

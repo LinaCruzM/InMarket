@@ -1,0 +1,22 @@
+<div class="sidenav" *ngIf="showSidebar" [ngClass]="collapsed ? 'sidenav-collapsed': '' ">
+  <div class="logo-container">
+    <a class="nav-icon" (click)="toggleCollapse()">
+      <i class="bi bi-list"></i>
+    </a>
+    <div class="logo" *ngIf="collapsed">
+      <img src="/assets/images/logo-sidebar.png" alt="">
+    </div>
+  </div>
+  <ul class="nav">
+    <li class="nav-item" *ngFor="let data of navData">
+      <!-- routerLinkActive adds the 'active' class when the route is active -->
+      <a class="nav-link" 
+         [routerLink]="[data.routeLink]" 
+         routerLinkActive="active" 
+         [routerLinkActiveOptions]="{exact: true}">
+        <i class="nav-icon" [class]="data.icon"></i>
+        <span class="nav-text" *ngIf="collapsed">{{data.label}}</span>
+      </a>
+    </li>
+  </ul>
+</div>

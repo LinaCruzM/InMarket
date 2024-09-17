@@ -1,0 +1,96 @@
+.toolbar{
+    width: calc(100% - 5rem);
+    margin-left: 5rem;
+    z-index: 1;
+    transition: all .5s ease;
+    background: red;
+    padding: 1rem 1.5rem 0 1.5rem;
+    position: fixed;
+    top: 0;
+}
+
+.tool-content{
+    height: 6rem;
+    background-color: aqua;
+    border-radius: 0.625rem;
+    box-shadow: 0 0 10px 0 rgb(34 41 47 / 10%);
+    padding: 0 3.563rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-container{
+    position: relative;
+}
+
+.searcher{
+    border: none;
+    height: 2.375rem;
+    padding-left: 38.5rem;
+    padding-right: 1.25rem;
+    background-color: blueviolet;
+    box-shadow: none;
+    border-radius: 1.875rem;
+    outline: 0;
+}
+
+.search i{
+    position: absolute;
+    font-size: 1rem;
+    line-height: 2.375rem;
+    left: 0.813rem;
+    top: 0;
+    color: blue;
+}
+
+.content-right{
+    display: flex;
+    align-items: center;
+}
+
+.tool-menu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1.25rem;
+}
+
+.menu-btn{
+    font-size: 18px;
+    height: 42px;
+    width: 42px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    margin-left: 5px;
+    outline: 0;
+    color: black;
+}
+
+.menu-btn:hover,
+.menu-btn:focus{
+    background-color: yellowgreen;
+    color: brown;
+}
+
+
+.circle-indicator{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.tool-timmed{
+    width: calc(100% - 15.5625rem);
+    margin-left: 16.5625rem;
+}
+
+.tool-md-screen{
+    width: calc(100% - 5rem);
+    margin-left: 5rem;
+}
+
+.full-body{
+    display: none;
+}
