@@ -2,18 +2,18 @@
     width: calc(100% - 5rem);
     margin-left: 5rem;
     z-index: 1;
-    transition: all .5s ease;
-    background: red;
+    transition: all .5s ease color transparent;
     padding: 1rem 1.5rem 0 1.5rem;
     position: fixed;
+    background-color: #EAE9E9;
     top: 0;
 }
 
 .tool-content{
-    height: 6rem;
-    background-color: aqua;
+    height: 4rem;
+    background-color: whitesmoke;
     border-radius: 0.625rem;
-    box-shadow: 0 0 10px 0 rgb(34 41 47 / 10%);
+    box-shadow: 0 0 10px 0 #22292f1a;
     padding: 0 3.563rem;
     display: flex;
     align-items: center;
@@ -27,9 +27,10 @@
 .searcher{
     border: none;
     height: 2.375rem;
-    padding-left: 38.5rem;
-    padding-right: 1.25rem;
-    background-color: blueviolet;
+    padding-left: 2.5rem;
+    padding-right: 40.5rem;
+    margin-right: 2rem;
+    background-color: #e8e8e8;
     box-shadow: none;
     border-radius: 1.875rem;
     outline: 0;
@@ -41,7 +42,7 @@
     line-height: 2.375rem;
     left: 0.813rem;
     top: 0;
-    color: blue;
+    color: #0084C2;
 }
 
 .content-right{
@@ -56,34 +57,36 @@
     margin: 1.25rem;
 }
 
-/* .menu-btn{
+.menu-btn{
     font-size: 18px;
     height: 42px;
     width: 42px;
     cursor: pointer;
     border: 1px solid transparent;
     border-radius: 50%;
-    margin-left: 5px;
+    margin-left: 7px;
     outline: 0;
-    color: black;
-} */
+    background-color: #023059;
+    color: white;
+}
 
-/* .menu-btn:hover,
+.menu-btn:hover,
 .menu-btn:focus{
-    background-color: yellowgreen;
-    color: brown;
-} */
-
-
-.circle-indicator{
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+    background-color: #0084C2;
+    color: white;
 }
 
 .tool-timmed{
     width: calc(100% - 15.5625rem);
     margin-left: 16.5625rem;
+}
+
+.tool-timmed .tool-content{
+    padding: 0 3em;
+}
+
+.tool-timmed .searcher{
+    padding-right: 30rem;
 }
 
 .tool-md-screen{

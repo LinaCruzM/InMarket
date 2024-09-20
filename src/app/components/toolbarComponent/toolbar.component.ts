@@ -12,12 +12,14 @@ export class ToolbarComponent implements OnInit{
   @Input() collapsed = false;
   @Input() screenWidth = 0;
 
+  canShowSearchAsOverlay = false;
+
   constructor(private router: Router){
 
   }
 
+
   ngOnInit(): void {
-    
   }
 
 
@@ -32,5 +34,4 @@ export class ToolbarComponent implements OnInit{
     }
     return styleClass;
   }
-
 }
