@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,19 +10,27 @@ export class SuppliersService {
 
   constructor(private http: HttpClient) {}
 
-  getSuppliers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getSuppliers(): Observable<any> {
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(this.apiUrl, { headers });
   }
 
   createSupplier(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(this.apiUrl, { headers });
   }
 
   updateSupplier(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, data);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(this.apiUrl, { headers });
   }
 
   deleteSupplier(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(this.apiUrl, { headers });
   }
 }

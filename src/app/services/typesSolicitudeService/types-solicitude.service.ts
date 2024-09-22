@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,23 +7,31 @@ import { Observable } from 'rxjs';
 })
 export class TypesSolicitudeService {
 
-  private apiUrl = 'http://localhost:8000/api/type-solicitations'; // Cambia la URL según sea necesario
+  private apiUrl = 'http://localhost:8000/api/type/solicitations'; // Cambia la URL según sea necesario
 
   constructor(private http: HttpClient) {}
 
-  getTypeSolicitations(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getTypeSolicitations(): Observable<any> {
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(this.apiUrl, { headers });
   }
 
   createTypeSolicitation(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(this.apiUrl, { headers });
   }
 
   updateTypeSolicitation(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, data);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(this.apiUrl, { headers });
   }
 
   deleteTypeSolicitation(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(this.apiUrl, { headers });
   }
 }

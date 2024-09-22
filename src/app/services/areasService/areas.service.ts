@@ -11,19 +11,27 @@ export class AreasService {
 
   constructor(private http: HttpClient) {}
 
-  getAreas(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getAllAreas(): Observable<any> {
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(this.apiUrl, { headers });
   }
 
   createArea(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(this.apiUrl, { headers });
   }
 
   updateArea(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, data);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(this.apiUrl, { headers });
   }
 
   deleteArea(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(this.apiUrl, { headers });
   }
 }

@@ -17,7 +17,7 @@ export class AreasComponent implements OnInit{
   }
 
   loadAreas() {
-    this.areasService.getAreas().subscribe(
+    this.areasService.getAllAreas().subscribe(
       (data) => {
         this.areas = data;
       },
