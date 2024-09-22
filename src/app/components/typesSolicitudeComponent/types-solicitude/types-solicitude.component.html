@@ -1,1 +1,37 @@
-<p>types-solicitude works!</p>
+<app-toolbar></app-toolbar><div class="container-box">
+    <main class="table" id="customers_table">
+      <section class="table-header">
+          <h1>Tipo de solicitudes</h1>
+              <button class="add-btn"><i class="bi bi-plus-circle"></i>Agregar</button>
+      </section>
+      <section class="table-body">
+          <table>
+              <thead>
+                <tr>
+                    <th> Id</th>
+                    <th> Nombre</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let type of typeSolicitations">
+                    <td>{{ type.typ_sol_id }}</td>
+                    <td>{{ type.typ_sol_name }}</td>
+                    <td>
+                      <button (click)="editTypeSolicitation(type.typ_sol_id)" class="edit-btn">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </td>
+                    <td>
+                      <button (click)="deleteTypeSolicitation(type.typ_sol_id)" class="delete-btn">
+                        <i class="bi bi-trash3-fill"></i>
+                      </button>
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+      </section>
+  </main>
+  </div>
+  

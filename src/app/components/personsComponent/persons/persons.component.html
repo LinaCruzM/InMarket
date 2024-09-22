@@ -1,1 +1,44 @@
-<app-toolbar></app-toolbar>
+<app-toolbar></app-toolbar><div class="container-box">
+    <main class="table" id="customers_table">
+      <section class="table-header">
+          <h1>Usuarios</h1>
+              <button class="add-btn"><i class="bi bi-plus-circle"></i>Agregar</button>
+      </section>
+      <section class="table-body">
+          <table>
+              <thead>
+                  <tr>
+                      <th> Id</th>
+                      <th> Nombre</th>
+                      <th> Apellidos</th>
+                      <th>Email</th>
+                      <th> Estado</th>
+                      <th> Cargo </th>
+                      <th>Editar</th>
+                      <th>Eliminar</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let person of persons">
+                    <td>{{ person.per_id }}</td>
+                    <td>{{ person.per_name }}</td>
+                    <td>{{ person.per_lastname }}</td>
+                    <td>{{ person.per_mail }}</td>
+                    <td [ngClass]="{
+                        'status active': person.sol_status === 0,
+                        'status inactive': person.sol_status === 1
+                        }">{{ person.per_status }}</td>
+                    <td>{{ person.rol_id }}</td>
+                    <td>
+                      <button class="edit-btn" (click)="editPerson(person.per_id)"><i class="bi bi-pencil-square"></i></button>
+                    </td>
+                    <td>
+                      <button class="delete-btn" (click)="deletePerson(person.per_id)"><i class="bi bi-trash3-fill"></i></button>
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+      </section>
+  </main>
+  </div>
+  
