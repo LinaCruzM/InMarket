@@ -1,20 +1,19 @@
-
-.status.review {
+.review {
     background-color: #c2c2c2;
     color: #464646;
 }
 
-.status.denied {
+.denied {
     background-color: #d893a3;
     color: #b30021;
 }
 
-.status.pre-approved {
+.pre-approved {
     background-color: #ebc474;
     color: #644200;
 }
 
-.status.approved {
+.approved {
     background-color: #62b262;
     color: #142414;
 }

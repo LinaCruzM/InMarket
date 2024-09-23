@@ -1,47 +1,142 @@
+<app-toolbar 
+[collapsed]="isSideNavCollapsed"
+[screenWidth]="screenWidth">
+</app-toolbar>
+
 <div class="container-box">
   <main class="table" id="customers_table">
     <section class="table-header">
-        <h1>Solicitudes</h1>
-            <button class="add-btn"><i class="bi bi-plus-circle"></i>Agregar</button>
+      <h1>Solicitudes</h1>
+      <button class="add-btn" (click)="openAddModal()">
+        <i class="bi bi-plus-circle"></i>Agregar
+      </button>
     </section>
+    
     <section class="table-body">
-        <table>
-            <thead>
-                <tr>
-                    <th> Id</th>
-                    <th> Solicitante</th>
-                    <th> Solicitud</th>
-                    <th> Proveedor</th>
-                    <th> Estado </th>
-                    <th> Costo</th>
-                    <th> Descripción</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let solicitation of solicitations">
-                  <td>{{ solicitation.sol_id }}</td>
-                  <td>{{ solicitation.per_id }}</td>
-                  <td>{{ solicitation.typ_sol_id }}</td>
-                  <td>{{ solicitation.sup_id }}</td>
-                  <td>
-                    <p [ngClass]="{
-                      'status review': solicitation.sol_status === 0,
-                      'status denied': solicitation.sol_status === 1,
-                      'status pre-approved': solicitation.sol_status === 2,
-                      'status approved': solicitation.sol_status === 3
-                    }">
-                      {{ solicitation.sol_status }}
-                    </p>
-                  </td>
-                  <td><strong>{{ solicitation.sol_cost | currency }}</strong></td>
-                  <td>{{ solicitation.sol_description }}</td>
-                  <td><button class="edit-btn"><i class="bi bi-pencil-square"></i></button></td>
-                  <td><button (click)="deleteSolicitation(solicitation.sol_id)" class="delete-btn"><i class="bi bi-trash3-fill"></i></button></td>
-                </tr>
-            </tbody>
-        </table>
+      <table>
+        <thead>
+          <tr>
+            <th>Solicitante</th>
+            <th>Solicitud</th>
+            <th>Proveedor</th>
+            <th>Estado</th>
+            <th>Costo</th>
+            <th>Descripción</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let solicitation of solicitations">
+            <td>{{ solicitation.Person.per_name  + ' ' + solicitation.Person.per_lastname}}</td>
+            <td>{{ solicitation.Type_Solicitation.typ_sol_name }}</td>
+            <td>{{ solicitation.Supplier.sup_name }}</td>
+            <td>
+              <p [ngClass]="{
+                'status review': solicitation.sol_status === 0,
+                'status pre-approved': solicitation.sol_status === 1,
+                'status approved': solicitation.sol_status === 2,
+                'status denied': solicitation.sol_status === 3
+              }">
+                {{ solicitation.sol_status === 0 ? 'En revisión' :
+                   solicitation.sol_status === 1 ? 'Pre-aprobada' :
+                   solicitation.sol_status === 2 ? 'Aprobada' :
+                   solicitation.sol_status === 3 ? 'Denegada' : 'Desconocido' }}
+              </p>
+            </td>
+            <td>
+              <strong>
+                {{ solicitation.sol_cost | currency }}  
+                {{ solicitation.Currency.cur_name }}
+              </strong>
+            </td>
+            <td>{{ solicitation.sol_description }}</td>
+            <td>
+              <button class="edit-btn" (click)="openEditModal(solicitation)">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+            <td>
+              <button class="delete-btn">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </section>
-</main>
+  </main>
 </div>
+
+<!-- Modal para editar/agregar solicitud -->
+<div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
+  <div class="modal-content large" (click)="$event.stopPropagation()">
+    <h2>{{ isEditMode ? 'Editar Solicitud' : 'Agregar Solicitud' }}</h2>
+    <form #solForm="ngForm" (ngSubmit)="onSubmitForm(solForm)">
+      
+      <div class="modal-div">
+        <label for="per_name">Solicitante:</label>
+        <select id="per_name" [(ngModel)]="currentSolicitation.per_id" name="per_id" required>
+          <option *ngFor="let person of persons" [value]="person.per_id">{{ person.per_name  + ' ' + person.per_lastname }}</option>
+        </select>
+      </div>
+
+      <div class="modal-div">
+        <label for="typ_sol_name">Tipo de Solicitud:</label>
+        <select id="typ_sol_name" [(ngModel)]="currentSolicitation.typ_sol_id" name="typ_sol_id" required>
+          <option *ngFor="let type of types" [value]="type.typ_sol_id">{{ type.typ_sol_name }}</option>
+        </select>
+      </div>
+
+      <div class="modal-div">
+        <label for="sup_name">Proveedor:</label>
+        <select id="sup_name" [(ngModel)]="currentSolicitation.sup_id" name="sup_id" required>
+          <option *ngFor="let supplier of suppliers" [value]="supplier.sup_id">{{ supplier.sup_name }}</option>
+        </select>
+      </div>
+      <div class="modal-div">
+        <label for="typ_sol_name">Estado:</label>
+        <select [(ngModel)]="currentSolicitation.sol_status" name="currency">
+          <option [value]="0">Por revisar</option>
+          <option [value]="1">Pre-Aprobada</option>
+          <option [value]="2">Aprobada</option>
+          <option [value]="3">Denegada</option>
+        </select>
+      </div>
+      <label for="sol_cost">Costo:</label>
+      <div class="modal-div2">
+        <input type="number" id="sol_cost" [(ngModel)]="currentSolicitation.sol_cost" name="sol_cost" required>
+        <select [(ngModel)]="currentSolicitation.cur_id" name="currency">
+          <option *ngFor="let currency of currencies" [value]="currency.cur_id">{{ currency.cur_name }}</option>
+        </select>
+      </div>
+      <div class="modal-div">
+        <label for="sol_description">Descripción:</label>
+        <textarea id="sol_description" [(ngModel)]="currentSolicitation.sol_description" name="sol_description" minlength="5" required></textarea>
+      </div>
+
+      <div class="modal-btn">
+        <button class="btn" type="submit" [disabled]="solForm.invalid">
+          <i class="bi bi-plus-circle"></i>{{ isEditMode ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button class="btn" (click)="closeModal()" type="button"><i class="bi bi-x-circle"></i>Cerrar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para confirmación de eliminación -->
+<!-- <div class="modal" [ngClass]="{'show': showDeleteConfirmModal}" (click)="closeDeleteConfirmModal()">
+  <div class="modal-content small" (click)="$event.stopPropagation()">
+    <h2>Eliminar Solicitud</h2>
+    <div class="modal-delete">
+      <p>¿Estás seguro/a de que deseas eliminar esta solicitud? No podrás deshacer esta acción.</p>
+      <div class="modal-btn">
+        <button class="btn" (click)="confirmDelete()" type="button">Eliminar</button>
+        <button class="btn" (click)="closeDeleteConfirmModal()" type="button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+

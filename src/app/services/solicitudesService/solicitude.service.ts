@@ -7,24 +7,49 @@ import { Observable } from 'rxjs';
 })
 export class SolicitudeService {
   private apiUrl = 'http://localhost:8000/api/solicitations'; // Cambia la URL si es necesario
+  private personsUrl = 'http://localhost:8000/api/persons'; // Endpoint para solicitantes
+  private typesUrl = 'http://localhost:8000/api/type/solicitations'; // Endpoint para tipos de solicitud
+  private suppliersUrl = 'http://localhost:8000/api/suppliers'; // Endpoint para proveedores
+  private currenciesUrl = 'http://localhost:8000/api/currencies'; 
 
   constructor(private http: HttpClient) {}
 
-  // Método GET para obtener todas las solicitudes
   getSolicitations(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(this.apiUrl, { headers });
   }
 
-  // Método POST para crear una nueva solicitud
+  getPersons(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(this.personsUrl, { headers });
+  }
+
+  getTypes(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(this.typesUrl, { headers });
+  }
+
+  getSuppliers(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(this.suppliersUrl, { headers });
+  }
+
+  getCurrencies(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(this.currenciesUrl, { headers });
+  }
+
   createSolicitation(data: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(this.apiUrl, data, { headers });
   }
 
-  // Método PUT para actualizar una solicitud existente
   updateSolicitation(id: number, data: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -32,7 +57,6 @@ export class SolicitudeService {
     return this.http.put(url, data, { headers });
   }
 
-  // Método DELETE para eliminar una solicitud existente
   deleteSolicitation(id: number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

@@ -12,10 +12,10 @@
                       <th> Nombre</th>
                       <th> Apellidos</th>
                       <th>Email</th>
-                      <th> Estado</th>
-                      <th> Cargo </th>
-                      <th>Editar</th>
-                      <th>Eliminar</th>
+                      <th>Estado</th>
+                      <th>Cargo </th>
+                      <th></th>
+                      <th></th>
                   </tr>
               </thead>
               <tbody>
@@ -24,11 +24,14 @@
                     <td>{{ person.per_name }}</td>
                     <td>{{ person.per_lastname }}</td>
                     <td>{{ person.per_mail }}</td>
-                    <td [ngClass]="{
-                        'status active': person.sol_status === 0,
-                        'status inactive': person.sol_status === 1
-                        }">{{ person.per_status }}</td>
-                    <td>{{ person.rol_id }}</td>
+                    <td>
+                        <p [ngClass]="{
+                            'status active': person.per_status === 0,
+                            'status inactive': person.per_status === 1
+                            }">{{ person.per_status === 0 ? 'Activo/a' :
+                            person.per_status === 1 ? 'Inactivo/a'  : 'Desconocido'}}
+                        </p></td>
+                    <td>{{ person.Rol.rol_name }}</td>
                     <td>
                       <button class="edit-btn" (click)="editPerson(person.per_id)"><i class="bi bi-pencil-square"></i></button>
                     </td>

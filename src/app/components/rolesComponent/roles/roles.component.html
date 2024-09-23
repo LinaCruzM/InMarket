@@ -8,18 +8,18 @@
           <table>
               <thead>
                 <tr>
-                    <th> Id</th>
-                    <th> Nombre</th>
-                    <th> Área</th>
-                    <th>Editar</th>
-                    <th>Eliminar</th>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Área</th>
+                    <th></th>
+                    <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let rol of roles">
                     <td>{{ rol.rol_id }}</td>
                     <td>{{ rol.rol_name }}</td>
-                    <td>{{ rol.are_id }}</td>
+                    <td>{{ rol.Area.are_name }}</td>
                     <td>
                       <button (click)="editRol(rol.rol_id)" class="edit-btn"><i class="bi bi-pencil-square"></i></button>
                     </td>

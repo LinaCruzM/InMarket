@@ -1,16 +1,9 @@
-
-.status {
-    padding: .2rem .5rem;
-    width: fit-content;
-    border-radius: 1rem;
-    text-align: center;
-  }
-.status.inactive {
+  .inactive {
     background-color: #d893a3;
     color: #b30021;
 }
 
-.status.active {
+.active {
     background-color: #62b262;
     color: #142414;
 }
