@@ -20,18 +20,19 @@ export class AreasService {
   createArea(data: any): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(this.apiUrl, { headers });
+    return this.http.post(this.apiUrl, data, { headers });  // Aquí se pasa 'data' como segundo parámetro
   }
 
   updateArea(id: number, data: any): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put(this.apiUrl, { headers });
+    return this.http.put(`${this.apiUrl}/${id}`, data, { headers }); // Asegúrate de pasar 'data'
   }
 
   deleteArea(id: number): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete(this.apiUrl, { headers });
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers }); // Aquí se añade el 'id' a la URL
   }
+  
 }

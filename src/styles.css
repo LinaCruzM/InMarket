@@ -218,18 +218,11 @@ tbody tr.hide td p {
   display: flex;
 }
 
-.large{
-  height: 87%;
-}
-
-.small{
-  height: 31.5%;
-}
-
 .modal-content {
   background: white;
   border-radius: 15px;
   width: 50%;
+  height: calc(100% - fit-content);
 }
 
 .modal-content h2{

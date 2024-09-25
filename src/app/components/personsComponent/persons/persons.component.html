@@ -1,47 +1,116 @@
-<app-toolbar></app-toolbar><div class="container-box">
+<app-toolbar 
+[collapsed]="isSideNavCollapsed"
+[screenWidth]="screenWidth">
+</app-toolbar>
+
+<div class="container-box">
     <main class="table" id="customers_table">
       <section class="table-header">
-          <h1>Usuarios</h1>
-              <button class="add-btn"><i class="bi bi-plus-circle"></i>Agregar</button>
+        <h1>Usuarios</h1>
+        <!-- Botón para abrir el modal de agregar/editar usuario -->
+        <button class="add-btn" (click)="openModal()"><i class="bi bi-plus-circle"></i>Agregar</button>
       </section>
       <section class="table-body">
-          <table>
-              <thead>
-                  <tr>
-                      <th> Id</th>
-                      <th> Nombre</th>
-                      <th> Apellidos</th>
-                      <th>Email</th>
-                      <th>Estado</th>
-                      <th>Cargo </th>
-                      <th></th>
-                      <th></th>
-                  </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let person of persons">
-                    <td>{{ person.per_id }}</td>
-                    <td>{{ person.per_name }}</td>
-                    <td>{{ person.per_lastname }}</td>
-                    <td>{{ person.per_mail }}</td>
-                    <td>
-                        <p [ngClass]="{
-                            'status active': person.per_status === 0,
-                            'status inactive': person.per_status === 1
-                            }">{{ person.per_status === 0 ? 'Activo/a' :
-                            person.per_status === 1 ? 'Inactivo/a'  : 'Desconocido'}}
-                        </p></td>
-                    <td>{{ person.Rol.rol_name }}</td>
-                    <td>
-                      <button class="edit-btn" (click)="editPerson(person.per_id)"><i class="bi bi-pencil-square"></i></button>
-                    </td>
-                    <td>
-                      <button class="delete-btn" (click)="deletePerson(person.per_id)"><i class="bi bi-trash3-fill"></i></button>
-                    </td>
-                  </tr>
-              </tbody>
-          </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Email</th>
+              <th>Estado</th>
+              <th>Cargo</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let person of persons">
+              <td>{{ person.per_name }}</td>
+              <td>{{ person.per_lastname }}</td>
+              <td>{{ person.per_mail }}</td>
+              <td>
+                <p [ngClass]="{
+                  'status uactive': person.per_status === 0,
+                  'status inactive': person.per_status === 1
+                }">{{ person.per_status === 0 ? 'Activo/a' : 'Inactivo/a' }}</p>
+              </td>
+              <td>{{ person.Rol.rol_name }}</td>
+              <td>
+                <button class="edit-btn" (click)="editPerson(person)"><i class="bi bi-pencil-square"></i></button>
+              </td>
+              <td>
+                <button class="delete-btn" (click)="openDeleteConfirmModal(person)"><i class="bi bi-trash3-fill"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
-  </main>
+    </main>
   </div>
   
+    <!-- Modal para agregar/editar usuario -->
+    <div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
+      <div class="modal-content large" (click)="$event.stopPropagation()">
+        <h2>{{ isEditMode ? 'Editar Usuario' : 'Agregar Usuario' }}</h2>
+        <form #userForm="ngForm" (ngSubmit)="onSubmitForm()">
+          
+          <div class="modal-div">
+            <label for="per_name">Nombres:</label>
+            <input type="text" id="per_name" [(ngModel)]="currentPerson.per_name" name="per_name" required>
+          </div>
+  
+          <div class="modal-div">
+            <label for="per_lastname">Apellidos:</label>
+            <input type="text" id="per_lastname" [(ngModel)]="currentPerson.per_lastname" name="per_lastname" required>
+          </div>
+  
+          <div class="modal-div">
+            <label for="per_mail">Email:</label>
+            <input type="email" id="per_mail" [(ngModel)]="currentPerson.per_mail" name="per_mail" required>
+          </div>
+  
+          <div class="modal-div" *ngIf="!isEditMode">
+            <label for="per_password">Contraseña provisional:</label>
+            <input type="text" id="per_password" [(ngModel)]="currentPerson.per_password" name="per_password" required>
+          </div>
+
+          <div class="modal-div">
+            <label for="rol_name">Cargo:</label>
+            <select id="rol_name" [(ngModel)]="currentPerson.rol_id" name="rol_id" required>
+              <option *ngFor="let rol of roles" [value]="rol.rol_id">{{ rol.rol_name }}</option>
+            </select>
+          </div>
+  
+          <div class="modal-div">
+            <label for="per_status">Estado:</label>
+            <select id="per_status" [(ngModel)]="currentPerson.per_status" name="per_status">
+              <option [value]="0">Activo</option>
+              <option [value]="1">Inactivo</option>
+            </select>
+          </div>
+  
+          <div class="modal-btn">
+            <button class="btn" type="submit" [disabled]="userForm.invalid">
+              <i class="bi bi-plus-circle"></i>{{ isEditMode ? 'Actualizar' : 'Crear' }}
+            </button>
+            <button class="btn" (click)="closeModal()" type="button">
+              <i class="bi bi-x-circle"></i>Cerrar
+            </button>
+          </div>
+        </form>
+      </div>  
+    </div>
+
+    <!-- Modal para confirmación de eliminación -->
+<div class="modal" [ngClass]="{'show': showDeleteConfirmModal}" (click)="closeDeleteConfirmModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Eliminar Usuario</h2>
+    <div class="modal-delete">
+      <p>¿Estás seguro/a de que deseas eliminar este usuario? No podrás deshacer esta acción.</p>
+      <div class="modal-btn">
+        <button class="btn" (click)="confirmDelete()" type="button">Eliminar</button>
+        <button class="btn" (click)="closeDeleteConfirmModal()" type="button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

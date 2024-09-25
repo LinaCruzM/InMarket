@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PersonsService {
-  private apiUrl = 'http://localhost:8000/api/persons'; // Cambia la URL si es necesario
+  private apiUrl = 'http://localhost:8000/api/persons'; 
+  private rolesUrl = 'http://localhost:8000/api/roles'; // Cambia la URL si es necesario
 
   constructor(private http: HttpClient) {}
 
@@ -20,6 +21,12 @@ export class PersonsService {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(this.apiUrl, data, { headers });
+  }
+
+  getRoles(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(this.rolesUrl, { headers });
   }
 
   updatePerson(id: number, data: any): Observable<any> {

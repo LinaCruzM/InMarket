@@ -20,18 +20,20 @@ export class TypesSolicitudeService {
   createTypeSolicitation(data: any): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(this.apiUrl, { headers });
+    return this.http.post(this.apiUrl, data, { headers }); // Asegúrate de pasar "data"
   }
 
   updateTypeSolicitation(id: number, data: any): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put(this.apiUrl, { headers });
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put(url, data, { headers }); // Asegúrate de pasar "data"
   }
 
   deleteTypeSolicitation(id: number): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete(this.apiUrl, { headers });
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete(url, { headers });
   }
 }

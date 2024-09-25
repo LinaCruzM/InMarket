@@ -14,6 +14,8 @@ export class BodyComponent {
   @Input() collapsed = false;
   @Input() screenWidth = 0;
 
+  isSideNavCollapsed = false;
+
   getBodyClass(): string{
     let styleClass = '';
     if(this.collapsed && this.screenWidth > 768){

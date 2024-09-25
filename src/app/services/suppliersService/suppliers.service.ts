@@ -19,18 +19,20 @@ export class SuppliersService {
   createSupplier(data: any): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(this.apiUrl, { headers });
+    return this.http.post(this.apiUrl, data, { headers });
   }
 
   updateSupplier(id: number, data: any): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put(this.apiUrl, { headers });
-  }
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put(url, data, { headers });
+  }  
 
   deleteSupplier(id: number): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete(this.apiUrl, { headers });
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete(url, { headers });
   }
 }
