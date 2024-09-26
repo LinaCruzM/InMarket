@@ -1,5 +1,6 @@
 // src/app/reset/reset.component.ts
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router'; // Asegúrate de que Router esté importado
 
 @Component({
@@ -11,8 +12,10 @@ export class ResetComponent {
   per_mail: string = '';
   activeField: string | null = null;
   emailIsValid: boolean = true;
+  showModal: boolean = false;
+  errorMsg: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   activateField(field: string) {
     this.activeField = field;
@@ -28,29 +31,31 @@ export class ResetComponent {
     return this.activeField === field;
   }
 
-  async resetForm() {
-    if (this.emailIsValid) {
-      try {
-        // Simulamos una llamada al servicio de autenticación
-        await this.access(this.per_mail);
-        this.router.navigate(['/users']);
-      } catch (error) {
-        console.error('Ha ocurrido un error durante el acceso:', error);
-        // this.showModal = true;
-      }
-    } else {
-      // this.showModal = true;
-    }
+
+  // Método para abrir el modal
+  openModal() {
+    this.showModal = true;
   }
 
-  async access(email: string) {
-    // Aquí iría la llamada al servicio de autenticación
-    return new Promise((resolve, reject) => {
-      if (email === 'test@test.com') {
-        resolve(true);
-      } else {
-        reject('Invalid email');
-      }
-    });
+  // Método para cerrar el modal
+  closeModal(event: boolean) {
+    this.showModal = event;
+  }
+
+  resetForm() {
+    const payload = { per_mail: this.per_mail };
+    this.http.post('http://localhost:8000/api/Forgot-Password', payload)
+      .subscribe({
+        next: (response) => {
+          this.openModal();
+          console.log('Email sent successfully', response);
+          // Redirigir o mostrar un mensaje de éxito
+        },
+        error: (error) => {
+          console.error('Error sending email', error);
+          this.showModal = true;
+          this.errorMsg = error.error?.errores || 'Error al enviar el correo';
+        }
+      });
   }
 }

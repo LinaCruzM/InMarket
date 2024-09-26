@@ -18,6 +18,8 @@ import { SuppliersComponent } from './components/suppliersComponent/suppliers/su
 import { CurrenciesComponent } from './components/currenciesComponent/currencies/currencies.component';
 import { BodyComponent } from './components/bodyComponent/body/body.component';
 import { ToolbarComponent } from './components/toolbarComponent/toolbar.component';
+import { ModalCodeComponent } from './components/modal-code/modal-code.component';
+import { PasswordComponent } from './components/password/password.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ToolbarComponent } from './components/toolbarComponent/toolbar.componen
     SuppliersComponent,
     CurrenciesComponent,
     BodyComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ModalCodeComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,

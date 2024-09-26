@@ -1,0 +1,10 @@
+<div class="modal-overlay" (click)="close()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Ingresa el código de recuperación</h2>
+      <input type="text" [(ngModel)]="recoveryCode" placeholder="Código de recuperación" required>
+      <button (click)="verifyCode()">Verificar Código</button>
+      <button class="close" (click)="close()">Cerrar</button>
+      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    </div>
+  </div>
+  
