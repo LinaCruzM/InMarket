@@ -1,0 +1,28 @@
+<!-- Modal para agregar/editar área -->
+<div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
+    <div class="modal-content large" (click)="$event.stopPropagation()">
+      <h2>{{ isEditMode ? 'Editar Área' : 'Agregar Área' }}</h2>
+      <form #areaForm="ngForm" (ngSubmit)="onSubmitForm()">
+        
+        <div class="modal-div">
+          <label for="are_name">Nombre del Área:</label>
+          <input type="text" id="are_name" [(ngModel)]="currentArea.are_name" name="are_name" required>
+        </div>
+        
+        <div class="modal-div">
+          <label for="are_limit">Presupuesto límite:</label>
+          <input type="number" id="are_limit" [(ngModel)]="currentArea.are_limit" name="are_limit" required>
+        </div>
+  
+        <div class="modal-btn">
+          <button class="btn" type="submit" [disabled]="areaForm.invalid">
+            <i class="bi bi-plus-circle"></i>{{ isEditMode ? 'Actualizar' : 'Crear' }}
+          </button>
+          <button class="btn" (click)="closeModal()" type="button">
+            <i class="bi bi-x-circle"></i>Cerrar
+          </button>
+        </div>
+      </form>
+    </div>  
+  </div>
+  

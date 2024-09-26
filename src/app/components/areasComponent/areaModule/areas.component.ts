@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AreasService } from '../../../services/areasService/areas.service';
 
-
 @Component({
   selector: 'app-areas',
   templateUrl: './areas.component.html',
-  styleUrl: './areas.component.css'
+  styleUrls: ['./areas.component.css']
 })
-export class AreasComponent implements OnInit{
+export class AreasComponent implements OnInit {
   areas: any[] = [];
   showModal = false;
   showDeleteConfirmModal = false;
@@ -36,7 +35,6 @@ export class AreasComponent implements OnInit{
     );
   }
 
-  // Abrir modal para agregar área
   openModal() {
     this.isEditMode = false;
     this.resetForm();
@@ -49,12 +47,10 @@ export class AreasComponent implements OnInit{
     this.showModal = true;
   }
 
-  // Cerrar modal
   closeModal() {
     this.showModal = false;
   }
 
-  // Resetear el formulario
   resetForm() {
     this.currentArea = {
       are_id: 0,
@@ -63,7 +59,6 @@ export class AreasComponent implements OnInit{
     };
   }
 
-  // Enviar formulario para crear o actualizar área
   onSubmitForm() {
     if (this.isEditMode) {
       this.areasService.updateArea(this.currentArea.are_id, this.currentArea).subscribe(
@@ -84,7 +79,6 @@ export class AreasComponent implements OnInit{
     this.showDeleteConfirmModal = true;
   }
   
-  // Confirmar la eliminación del área
   confirmDelete() {
     if (this.areaToDelete) {
       this.areasService.deleteArea(this.areaToDelete.are_id).subscribe(
@@ -97,7 +91,6 @@ export class AreasComponent implements OnInit{
     }
   }
   
-  // Cerrar modal de confirmación de eliminación
   closeDeleteConfirmModal() {
     this.showDeleteConfirmModal = false;
     this.areaToDelete = null;

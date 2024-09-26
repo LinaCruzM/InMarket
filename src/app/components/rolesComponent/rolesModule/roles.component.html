@@ -1,0 +1,50 @@
+<app-toolbar></app-toolbar><div class="container-box">
+    <main class="table" id="customers_table">
+      <section class="table-header">
+          <h1>Roles</h1>
+              <button  (click)="openModal()" class="add-btn"><i class="bi bi-plus-circle"></i>Agregar</button>
+      </section>
+      <section class="table-body">
+          <table>
+              <thead>
+                <tr>
+                    <th>Nombre del rol</th>
+                    <th>Área</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let rol of roles">
+                    <td>{{ rol.rol_name }}</td>
+                    <td>{{ rol.Area.are_name }}</td>
+                    <td>
+                      <button (click)="editRol(rol.rol_id)" class="edit-btn"><i class="bi bi-pencil-square"></i></button>
+                    </td>
+                    <td>
+                      <button (click)="confirmDeleteRol(rol.rol_id)" class="delete-btn"><i class="bi bi-trash3-fill"></i></button>
+                    </td>
+                  </tr>
+              </tbody>
+          </table>
+      </section>
+  </main>
+  </div>
+  <!-- Modal para agregar/editar rol -->
+  <app-roles-modal
+  [showModal]="showModal"
+  [isEditMode]="isEditMode"
+  [currentRol]="currentRol"
+  [areas]="areas"
+  (closeModalEvent)="closeModal()"
+  (submitFormEvent)="onSubmitForm($event)"
+></app-roles-modal>
+
+<!-- Modal para confirmación de eliminación -->
+<app-roles-delete-modal
+  [showDeleteModal]="showDeleteModal"
+  [rolToDelete]="rolToDelete"
+  (closeDeleteModalEvent)="closeDeleteModal()"
+  (confirmDeleteEvent)="deleteRol($event)"
+></app-roles-delete-modal>
+

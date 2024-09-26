@@ -1,0 +1,13 @@
+<div class="modal" [ngClass]="{'show': showDeleteModal}" (click)="closeDeleteModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>Eliminar Rol</h2>
+      <div class="modal-delete">
+        <p>¿Estás seguro/a de que deseas eliminar este rol? No podrás deshacer esta acción.</p>
+        <div class="modal-btn">
+          <button class="btn" (click)="confirmDelete()" type="button">Eliminar</button>
+          <button class="btn" (click)="closeDeleteModal()" type="button">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

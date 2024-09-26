@@ -1,0 +1,29 @@
+<div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
+    <div class="modal-content large" (click)="$event.stopPropagation()">
+      <h2>{{ isEditMode ? 'Editar Rol' : 'Agregar Rol' }}</h2>
+      <form #rolForm="ngForm" (ngSubmit)="onSubmitForm(rolForm)">
+        
+        <div class="modal-div">
+          <label for="rol_name">Nombre del rol:</label>
+          <input type="text" id="rol_name" [(ngModel)]="currentRol.rol_name" name="rol_name" required>
+        </div>
+    
+        <div class="modal-div">
+          <label for="are_name">Área:</label>
+          <select id="are_name" [(ngModel)]="currentRol.are_id" name="are_id" required>
+            <option *ngFor="let area of areas" [value]="area.are_id">{{ area.are_name }}</option>
+          </select>
+        </div>
+    
+        <div class="modal-btn">
+          <button class="btn" type="submit" [disabled]="rolForm.invalid">
+            <i class="bi bi-plus-circle"></i>{{ isEditMode ? 'Actualizar' : 'Crear' }}
+          </button>
+          <button class="btn" (click)="closeModal()" type="button">
+            <i class="bi bi-x-circle"></i>Cerrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

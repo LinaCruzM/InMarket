@@ -1,0 +1,67 @@
+<app-toolbar 
+[collapsed]="isSideNavCollapsed"
+[screenWidth]="screenWidth">
+</app-toolbar>
+
+<div class="container-box">
+    <main class="table" id="customers_table">
+      <section class="table-header">
+        <h1>Usuarios</h1>
+        <!-- Botón para abrir el modal de agregar/editar usuario -->
+        <button class="add-btn" (click)="openModal()"><i class="bi bi-plus-circle"></i>Agregar</button>
+      </section>
+      <section class="table-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Email</th>
+              <th>Estado</th>
+              <th>Cargo</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let person of persons">
+              <td>{{ person.per_name }}</td>
+              <td>{{ person.per_lastname }}</td>
+              <td>{{ person.per_mail }}</td>
+              <td>
+                <p [ngClass]="{
+                  'status uactive': person.per_status === 0,
+                  'status inactive': person.per_status === 1
+                }">{{ person.per_status === 0 ? 'Activo/a' : 'Inactivo/a' }}</p>
+              </td>
+              <td>{{ person.Rol.rol_name }}</td>
+              <td>
+                <button class="edit-btn" (click)="editPerson(person)"><i class="bi bi-pencil-square"></i></button>
+              </td>
+              <td>
+                <button class="delete-btn" (click)="openDeleteConfirmModal(person)"><i class="bi bi-trash3-fill"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  
+    <!-- Modal para agregar/editar usuario -->
+    <app-persons-modal
+  [showModal]="showModal"
+  [isEditMode]="isEditMode"
+  [currentPerson]="currentPerson"
+  [roles]="roles"
+  (closeModalEvent)="closeModal()"
+  (submitFormEvent)="onSubmitForm()">
+  </app-persons-modal>
+
+    <!-- Modal para confirmación de eliminación -->
+    <app-persons-delete-modal
+    [showDeleteConfirmModal]="showDeleteConfirmModal"
+    [personToDelete]="personToDelete"
+    (closeDeleteConfirmModalEvent)="closeDeleteConfirmModal()"
+    (confirmDeleteEvent)="confirmDelete()">
+  </app-persons-delete-modal>

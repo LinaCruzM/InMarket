@@ -34,7 +34,6 @@ export class CurrenciesComponent implements OnInit {
     );
   }
 
-  // Método para abrir el modal en modo edición
   editCurrency(curId: number) {
     const currencyToEdit = this.currencies.find(currency => currency.cur_id === curId);
     if (currencyToEdit) {
@@ -46,7 +45,6 @@ export class CurrenciesComponent implements OnInit {
     }
   }
 
-  // Método para abrir el modal en modo agregar
   openModal() {
     this.isEditMode = false;
     this.currentCurrency = {
@@ -60,32 +58,29 @@ export class CurrenciesComponent implements OnInit {
     this.showModal = false;
   }
 
-// Confirmar la eliminación
-confirmDeleteCurrency(id: number) {
-  this.currencyToDelete = id;
-  this.showDeleteModal = true;
-}
-
-// Cerrar modal de eliminación
-closeDeleteModal() {
-  this.showDeleteModal = false;
-  this.currencyToDelete = null;
-}
-
-// Método para eliminar divisa
-deleteCurrency(id: number) {
-  if (id) { // Comprobación adicional para asegurar que id no sea null
-    this.currenciesService.deleteCurrency(id).subscribe(
-      () => {
-        this.loadCurrencies(); 
-        this.closeDeleteModal();
-      },
-      (error: any) => {
-        console.error('Error eliminando la divisa:', error);
-      }
-    );
+  confirmDeleteCurrency(id: number) {
+    this.currencyToDelete = id;
+    this.showDeleteModal = true;
   }
-}
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.currencyToDelete = null;
+  }
+
+  deleteCurrency(id: number) {
+    if (id) {
+      this.currenciesService.deleteCurrency(id).subscribe(
+        () => {
+          this.loadCurrencies(); 
+          this.closeDeleteModal();
+        },
+        (error: any) => {
+          console.error('Error eliminando la divisa:', error);
+        }
+      );
+    }
+  }
 
   onSubmitForm() { 
     if (this.isEditMode) {

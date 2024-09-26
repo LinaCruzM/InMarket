@@ -1,0 +1,51 @@
+<div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
+    <div class="modal-content large" (click)="$event.stopPropagation()">
+      <h2>{{ isEditMode ? 'Editar Usuario' : 'Agregar Usuario' }}</h2>
+      <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="modal-div">
+          <label for="per_name">Nombres:</label>
+          <input type="text" id="per_name" [(ngModel)]="currentPerson.per_name" name="per_name" required>
+        </div>
+  
+        <div class="modal-div">
+          <label for="per_lastname">Apellidos:</label>
+          <input type="text" id="per_lastname" [(ngModel)]="currentPerson.per_lastname" name="per_lastname" required>
+        </div>
+  
+        <div class="modal-div">
+          <label for="per_mail">Email:</label>
+          <input type="email" id="per_mail" [(ngModel)]="currentPerson.per_mail" name="per_mail" required>
+        </div>
+  
+        <div class="modal-div" *ngIf="!isEditMode">
+          <label for="per_password">Contraseña provisional:</label>
+          <input type="text" id="per_password" [(ngModel)]="currentPerson.per_password" name="per_password" required>
+        </div>
+  
+        <div class="modal-div">
+          <label for="rol_name">Cargo:</label>
+          <select id="rol_name" [(ngModel)]="currentPerson.rol_id" name="rol_id" required>
+            <option *ngFor="let rol of roles" [value]="rol.rol_id">{{ rol.rol_name }}</option>
+          </select>
+        </div>
+  
+        <div class="modal-div">
+          <label for="per_status">Estado:</label>
+          <select id="per_status" [(ngModel)]="currentPerson.per_status" name="per_status">
+            <option [value]="0">Activo</option>
+            <option [value]="1">Inactivo</option>
+          </select>
+        </div>
+  
+        <div class="modal-btn">
+          <button class="btn" type="submit" [disabled]="userForm.invalid">
+            <i class="bi bi-plus-circle"></i>{{ isEditMode ? 'Actualizar' : 'Crear' }}
+          </button>
+          <button class="btn" (click)="closeModal()" type="button">
+            <i class="bi bi-x-circle"></i>Cerrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

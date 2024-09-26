@@ -10,11 +10,11 @@ export class RolesComponent implements OnInit {
   roles: any[] = [];
   areas: any[] = [];
   showModal = false;
-  showDeleteModal = false; // Inicialmente el modal está oculto
+  showDeleteModal = false;
   rolToDelete: number | null = null;
   isEditMode = false;
   currentRol = {
-    rol_id: 0,  // Cambiado a number
+    rol_id: 0,
     rol_name: '',
     are_id: 0
   };
@@ -48,26 +48,23 @@ export class RolesComponent implements OnInit {
     );
   }
 
-  // Método para abrir el modal en modo edición
   editRol(rolId: number) {
     const rolToEdit = this.roles.find(rol => rol.rol_id === rolId);
     if (rolToEdit) {
-      this.isEditMode = true; // Indica que el modal estará en modo de edición
-      this.currentRol = { ...rolToEdit }; // Copiamos los datos del rol seleccionado
-      this.showModal = true; // Mostramos el modal
+      this.isEditMode = true;
+      this.currentRol = { ...rolToEdit };
+      this.showModal = true;
     } else {
       console.error('Rol no encontrado');
     }
   }
-  
 
-  // Método para abrir el modal en modo agregar
   openModal() {
     this.isEditMode = false;
     this.currentRol = {
-      rol_id: 0,     // Inicializamos a 0 o un valor que haga sentido para un nuevo rol
-      rol_name: '',  // Inicializamos como una cadena vacía
-      are_id: 0      // Inicializamos a 0 o un valor por defecto
+      rol_id: 0,
+      rol_name: '',
+      are_id: 0
     };
     this.showModal = true;
   }
@@ -76,12 +73,11 @@ export class RolesComponent implements OnInit {
     this.showModal = false;
   }
 
-  // Método para eliminar un rol
   deleteRol(rolId: number) {
     this.rolService.deleteRol(rolId).subscribe(
       () => {
-        this.loadRoles(); 
-        this.closeDeleteModal();// Recargar la lista de roles después de eliminar
+        this.loadRoles();
+        this.closeDeleteModal();
       },
       (error) => {
         console.error('Error deleting role:', error);
@@ -89,32 +85,27 @@ export class RolesComponent implements OnInit {
     );
   }
 
-  // Método para confirmar la eliminación
   confirmDeleteRol(rolId: number) {
     this.rolToDelete = rolId;
-    this.showDeleteModal = true; // Abre el modal de confirmación
+    this.showDeleteModal = true;
   }  
 
   closeDeleteModal() {
-    this.showDeleteModal = false; // Cierra el modal
-    this.rolToDelete = null; // Limpia el rol a eliminar
+    this.showDeleteModal = false;
+    this.rolToDelete = null;
   }
-  
 
-  onSubmitForm() {
+  onSubmitForm(rol: any) {
     if (this.isEditMode) {
-      // Actualización de un rol existente
-      this.rolService.updateRol(this.currentRol.rol_id, this.currentRol).subscribe(() => {
+      this.rolService.updateRol(rol.rol_id, rol).subscribe(() => {
         this.loadRoles();
         this.closeModal();
       });
     } else {
-      // Creación de un nuevo rol
-      this.rolService.createRol(this.currentRol).subscribe(() => {
+      this.rolService.createRol(rol).subscribe(() => {
         this.loadRoles();
         this.closeModal();
       });
     }
   }
-  
 }

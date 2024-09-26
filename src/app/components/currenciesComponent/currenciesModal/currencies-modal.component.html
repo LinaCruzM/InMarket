@@ -1,0 +1,20 @@
+<div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
+    <div class="modal-content large" (click)="$event.stopPropagation()">
+      <h2>{{ isEditMode ? 'Editar Divisa' : 'Agregar Divisa' }}</h2>
+      <form #currencyForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="modal-div">
+          <label for="cur_name">Nombre de la divisa:</label>
+          <input type="text" id="cur_name" [(ngModel)]="currentCurrency.cur_name" name="cur_name" required>
+        </div>
+        <div class="modal-btn">
+          <button class="btn" type="submit" [disabled]="currencyForm.invalid">
+            <i class="bi bi-plus-circle"></i>{{ isEditMode ? 'Actualizar' : 'Crear' }}
+          </button>
+          <button class="btn" (click)="closeModal()" type="button">
+            <i class="bi bi-x-circle"></i>Cerrar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

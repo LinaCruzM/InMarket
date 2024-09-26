@@ -1,8 +1,3 @@
-<app-toolbar 
-[collapsed]="isSideNavCollapsed"
-[screenWidth]="screenWidth">
-</app-toolbar>
-
 <div class="container-box">
   <main class="table" id="customers_table">
     <section class="table-header">
@@ -69,60 +64,16 @@
 </div>
 
 <!-- Modal para editar/agregar solicitud -->
-<div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
-  <div class="modal-content large" (click)="$event.stopPropagation()">
-    <h2>{{ isEditMode ? 'Editar Solicitud' : 'Agregar Solicitud' }}</h2>
-    <form #solForm="ngForm" (ngSubmit)="onSubmitForm(solForm)">
-      
-      <div class="modal-div">
-        <label for="per_name">Solicitante:</label>
-        <select id="per_name" [(ngModel)]="currentSolicitation.per_id" name="per_id" required>
-          <option *ngFor="let person of persons" [value]="person.per_id">{{ person.per_name  + ' ' + person.per_lastname }}</option>
-        </select>
-      </div>
+<app-solicitudes-modal
+[showModal]="showModal"
+[isEditMode]="isEditMode"
+[currentSolicitation]="currentSolicitation"
+[persons]="persons"
+[types]="types"
+[suppliers]="suppliers"
+(submit)="onSubmitForm($event)"
+(close)="closeModal()">
+</app-solicitudes-modal>
 
-      <div class="modal-div">
-        <label for="typ_sol_name">Tipo de Solicitud:</label>
-        <select id="typ_sol_name" [(ngModel)]="currentSolicitation.typ_sol_id" name="typ_sol_id" required>
-          <option *ngFor="let type of types" [value]="type.typ_sol_id">{{ type.typ_sol_name }}</option>
-        </select>
-      </div>
-
-      <div class="modal-div">
-        <label for="sup_name">Proveedor:</label>
-        <select id="sup_name" [(ngModel)]="currentSolicitation.sup_id" name="sup_id" required>
-          <option *ngFor="let supplier of suppliers" [value]="supplier.sup_id">{{ supplier.sup_name }}</option>
-        </select>
-      </div>
-      <div class="modal-div">
-        <label for="typ_sol_name">Estado:</label>
-        <select [(ngModel)]="currentSolicitation.sol_status" name="currency">
-          <option [value]="0">Por revisar</option>
-          <option [value]="1">Pre-Aprobada</option>
-          <option [value]="2">Aprobada</option>
-          <option [value]="3">Denegada</option>
-        </select>
-      </div>
-      <label for="sol_cost">Costo:</label>
-      <div class="modal-div2">
-        <input type="number" id="sol_cost" [(ngModel)]="currentSolicitation.sol_cost" name="sol_cost" required>
-        <select [(ngModel)]="currentSolicitation.cur_id" name="currency">
-          <option *ngFor="let currency of currencies" [value]="currency.cur_id">{{ currency.cur_name }}</option>
-        </select>
-      </div>
-      <div class="modal-div">
-        <label for="sol_description">Descripción:</label>
-        <textarea id="sol_description" [(ngModel)]="currentSolicitation.sol_description" name="sol_description" minlength="5" required></textarea>
-      </div>
-
-      <div class="modal-btn">
-        <button class="btn" type="submit" [disabled]="solForm.invalid">
-          <i class="bi bi-plus-circle"></i>{{ isEditMode ? 'Actualizar' : 'Crear' }}
-        </button>
-        <button class="btn" (click)="closeModal()" type="button"><i class="bi bi-x-circle"></i>Cerrar</button>
-      </div>
-    </form>
-  </div>  
-</div>
 
 

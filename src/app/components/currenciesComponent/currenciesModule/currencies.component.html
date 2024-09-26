@@ -1,0 +1,52 @@
+<div class="container-box">
+  <main class="table" id="customers_table">
+    <section class="table-header">
+        <h1>Divisas</h1>
+        <button class="add-btn" (click)="openModal()"><i class="bi bi-plus-circle"></i>Agregar</button>
+    </section>
+    <section class="table-body">
+        <table>
+            <thead> 
+              <tr>
+                  <th>Nombre de la Divisa</th>
+                  <th></th>
+                  <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let currency of currencies">
+                  <td>{{ currency.cur_name }}</td>
+                  <td>
+                    <button class="edit-btn" (click)="editCurrency(currency.cur_id)">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <button class="delete-btn" (click)="confirmDeleteCurrency(currency.cur_id)">
+                      <i class="bi bi-trash3-fill"></i>
+                    </button>
+                  </td>
+              </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</div>
+
+<!-- Modal para agregar/editar divisa -->
+<app-currencies-modal 
+  [showModal]="showModal"
+  [isEditMode]="isEditMode"
+  [currentCurrency]="currentCurrency"
+  (closeModalEvent)="closeModal()"
+  (submitFormEvent)="onSubmitForm()">
+</app-currencies-modal>
+
+<!-- Modal para confirmación de eliminación -->
+<app-currencies-delete-modal 
+  [showDeleteModal]="showDeleteModal"
+  [currencyToDelete]="currencyToDelete"
+  (closeDeleteModalEvent)="closeDeleteModal()"
+  (confirmDeleteEvent)="deleteCurrency(currencyToDelete!)">
+</app-currencies-delete-modal>
+
