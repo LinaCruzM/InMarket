@@ -12,6 +12,8 @@ export class SolicitudesModalComponent {
   @Input() persons: any[] = [];
   @Input() types: any[] = [];
   @Input() suppliers: any[] = [];
+  @Input() currencies: any[] = [];
+
   
   @Output() submit = new EventEmitter<any>();
   @Output() close = new EventEmitter<void>();

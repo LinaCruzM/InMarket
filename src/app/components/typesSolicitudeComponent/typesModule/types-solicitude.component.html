@@ -1,0 +1,71 @@
+<app-search-types (searchEvent)="filterTypes($event)"></app-search-types>
+<div class="container-box">
+  <main class="table" id="customers_table"> 
+    <section class="table-header"> 
+      <h1>Tipo de solicitudes</h1>
+      <button (click)="openModal()" class="add-btn"><i class="bi bi-plus-circle"></i>Agregar</button>
+    </section>
+    <section class="table-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre del Tipo de solicitud</th>
+            <th></th>
+            <th></th>
+          </tr> 
+        </thead>
+        <tbody> 
+          <tr *ngFor="let type of filteredTypes">
+            <td>{{ type.typ_sol_name }}</td>
+            <td>
+              <button (click)="editTypeSolicitation(type.typ_sol_id)" class="edit-btn">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+            <td>
+              <button (click)="confirmDeleteTypeSolicitation(type.typ_sol_id)" class="delete-btn">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+
+<!-- Modal para agregar/editar tipo de solicitud -->
+<div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
+  <div class="modal-content large" (click)="$event.stopPropagation()">
+    <h2>{{ isEditMode ? 'Editar Tipo de Solicitud' : 'Agregar Tipo de Solicitud' }}</h2>
+    <form #typeForm="ngForm" (ngSubmit)="onSubmitForm()">
+      <div class="modal-div">
+        <label for="typ_sol_name">Nombre del tipo de solicitud:</label>
+        <input type="text" id="typ_sol_name" [(ngModel)]="currentType.typ_sol_name" name="typ_sol_name" required>
+      </div>
+
+      <div class="modal-btn">
+        <button class="btn" type="submit" [disabled]="typeForm.invalid">
+          <i class="bi bi-plus-circle"></i>{{ isEditMode ? 'Actualizar' : 'Crear' }}
+        </button>
+        <button class="btn" (click)="closeModal()" type="button">
+          <i class="bi bi-x-circle"></i>Cerrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para confirmación de eliminación -->
+<div class="modal" [ngClass]="{'show': showDeleteModal}" (click)="closeDeleteModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Eliminar Tipo de Solicitud</h2>
+    <div class="modal-delete">
+      <p>¿Estás seguro/a de que deseas eliminar este tipo de solicitud? No podrás deshacer esta acción.</p>
+      <div class="modal-btn">
+        <button class="btn" (click)="typeToDelete !== null && deleteTypeSolicitation(typeToDelete)" type="button">Eliminar</button>
+        <button class="btn" (click)="closeDeleteModal()" type="button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

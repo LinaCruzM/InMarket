@@ -1,5 +1,5 @@
 <div class="modal" [ngClass]="{'show': showModal}" (click)="closeModal()">
-    <div class="modal-content large" (click)="$event.stopPropagation()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
       <h2>{{ isEditMode ? 'Editar Solicitud' : 'Agregar Solicitud' }}</h2>
       <form #solForm="ngForm" (ngSubmit)="onSubmitForm(solForm)">
         <div class="modal-div">
@@ -33,9 +33,12 @@
           </select>
         </div>
   
-        <div class="modal-div">
-          <label for="sol_cost">Costo:</label>
+        <label for="sol_cost">Costo:</label>
+        <div class="modal-div2">
           <input type="number" id="sol_cost" [(ngModel)]="currentSolicitation.sol_cost" name="sol_cost" required>
+          <select [(ngModel)]="currentSolicitation.cur_id" name="currency">
+            <option *ngFor="let currency of currencies" [value]="currency.cur_id">{{ currency.cur_name }}</option>
+          </select>
         </div>
   
         <div class="modal-div">

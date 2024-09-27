@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-@Injectable({
+@Injectable({ 
   providedIn: 'root'
-})
+}) 
 export class SolicitudeService {
   private apiUrl = 'http://localhost:8000/api/solicitations'; // Cambia la URL si es necesario
   private personsUrl = 'http://localhost:8000/api/persons'; // Endpoint para solicitantes
@@ -49,7 +49,7 @@ export class SolicitudeService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post(this.apiUrl, data, { headers });
   }
-
+ 
   updateSolicitation(id: number, data: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

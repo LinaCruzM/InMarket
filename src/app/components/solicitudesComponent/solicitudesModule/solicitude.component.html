@@ -1,0 +1,83 @@
+<app-search-solicitude
+ (searchChange)="onSearchChange($event)">
+</app-search-solicitude>
+<div class="container-box">
+  <main class="table" id="customers_table">
+    <section class="table-header">
+      <h1>Solicitudes</h1>
+      <button class="add-btn" (click)="openAddModal()">
+        <i class="bi bi-plus-circle"></i>Agregar
+      </button>
+    </section>
+    
+    <section class="table-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Solicitante</th>
+            <th>Solicitud</th>
+            <th>Proveedor</th>
+            <th>Estado</th>
+            <th>Costo</th>
+            <th>Descripción</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let solicitation of filteredSolicitations">
+            <td>{{ solicitation.Person.per_name  + ' ' + solicitation.Person.per_lastname}}</td>
+            <td>{{ solicitation.Type_Solicitation.typ_sol_name }}</td>
+            <td>{{ solicitation.Supplier.sup_name }}</td>
+            <td>
+              <p [ngClass]="{ 
+                'status review': solicitation.sol_status === 0,
+                'status pre-approved': solicitation.sol_status === 1,
+                'status approved': solicitation.sol_status === 2,
+                'status denied': solicitation.sol_status === 3
+              }">
+                {{ solicitation.sol_status === 0 ? 'Por revisar' :
+                   solicitation.sol_status === 1 ? 'En revisión' :
+                   solicitation.sol_status === 2 ? 'Aprobada' :
+                   solicitation.sol_status === 3 ? 'Denegada' : 'Desconocido' }}
+              </p>
+            </td>
+            <td>
+              <strong>
+                {{ solicitation.sol_cost | currency }}  
+                {{ solicitation.Currency.cur_name }}
+              </strong>
+            </td>
+            <td>{{ solicitation.sol_description }}</td>
+            <td>
+              <button class="edit-btn" (click)="openEditModal(solicitation)">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+            </td>
+            <td>
+              <button class="delete-btn">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+
+<!-- Modal para editar/agregar solicitud -->
+<app-solicitudes-modal
+[showModal]="showModal"
+[isEditMode]="isEditMode"
+[currentSolicitation]="currentSolicitation"
+[persons]="persons"
+[types]="types"
+[suppliers]="suppliers"
+[currencies]="currencies"
+(submit)="onSubmitForm($event)"
+(close)="closeModal()">
+</app-solicitudes-modal>
+
+
+

@@ -1,0 +1,13 @@
+<div class="modal-overlay">
+  <div class="modal-content">
+    <h1>Reestablece tu contraseña</h1>
+    <div class="modal-delete">
+      <p>Se ha enviado un código de verificación a tu correo</p>
+      <input type="text" [(ngModel)]="recovery_code" placeholder="Código de recuperación" required>
+      <div class="modal-btn">
+        <button (click)="verifyCode()">Verificar Código</button>
+        <button (click)="close()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,7 @@ export class CurrenciesComponent implements OnInit {
   showModal = false;
   showDeleteModal = false;
   currencyToDelete: number | null = null;
+  filteredCurrencies: any[] = [];
   isEditMode = false;
   currentCurrency = {
     cur_id: 0,
@@ -27,10 +28,21 @@ export class CurrenciesComponent implements OnInit {
     this.currenciesService.getCurrencies().subscribe(
       (data: any[]) => {
         this.currencies = data;
+        this.filteredCurrencies = data;  
       },
       (error: any) => {
         console.error('Error fetching currencies:', error);
       }
+    ); 
+  }
+
+  filterCurrencies(searchTerm: string) {
+    if (!searchTerm) {
+      this.filteredCurrencies = this.currencies; // Si no hay término, mostrar todos los roles
+      return;
+    } 
+    this.filteredCurrencies = this.currencies.filter(currency =>
+      currency.cur_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 

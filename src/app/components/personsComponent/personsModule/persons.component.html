@@ -1,7 +1,6 @@
-<app-toolbar 
-[collapsed]="isSideNavCollapsed"
-[screenWidth]="screenWidth">
-</app-toolbar>
+<app-search-persons 
+(searchEvent)="filterPersons($event)">
+</app-search-persons>
 
 <div class="container-box">
     <main class="table" id="customers_table">
@@ -11,7 +10,7 @@
         <button class="add-btn" (click)="openModal()"><i class="bi bi-plus-circle"></i>Agregar</button>
       </section>
       <section class="table-body">
-        <table>
+        <table> 
           <thead>
             <tr>
               <th>Nombres</th>
@@ -24,7 +23,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let person of persons">
+            <tr *ngFor="let person of filteredPersons">
               <td>{{ person.per_name }}</td>
               <td>{{ person.per_lastname }}</td>
               <td>{{ person.per_mail }}</td>

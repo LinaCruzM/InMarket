@@ -8,6 +8,7 @@ import { AreasService } from '../../../services/areasService/areas.service';
 })
 export class AreasComponent implements OnInit {
   areas: any[] = [];
+  filteredAreas: any[] = []; // Inicializamos esta propiedad
   showModal = false;
   showDeleteConfirmModal = false;
   isEditMode = false;
@@ -28,10 +29,22 @@ export class AreasComponent implements OnInit {
     this.areasService.getAllAreas().subscribe(
       (data) => {
         this.areas = data;
+        this.filteredAreas = data; // Inicializamos filteredAreas con los datos cargados
       },
       (error) => {
         console.error('Error fetching areas:', error);
       }
+    );
+  }
+
+  filterAreas(searchTerm: string) {
+    if (!searchTerm) {
+      this.filteredAreas = this.areas; // Si no hay término, mostrar todas las áreas
+      return;
+    }
+    
+    this.filteredAreas = this.areas.filter(area =>
+      area.are_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
@@ -43,7 +56,7 @@ export class AreasComponent implements OnInit {
 
   editArea(area: any) {
     this.isEditMode = true;
-    this.currentArea = { ...area }; // Asignar todo el objeto del área
+    this.currentArea = { ...area };
     this.showModal = true;
   }
 
@@ -57,9 +70,9 @@ export class AreasComponent implements OnInit {
       are_name: '',
       are_limit: 0
     };
-  }
+  } 
 
-  onSubmitForm() {
+  onSubmitForm() { 
     if (this.isEditMode) {
       this.areasService.updateArea(this.currentArea.are_id, this.currentArea).subscribe(
         () => this.loadAreas(),
@@ -78,7 +91,7 @@ export class AreasComponent implements OnInit {
     this.areaToDelete = area;
     this.showDeleteConfirmModal = true;
   }
-  
+
   confirmDelete() {
     if (this.areaToDelete) {
       this.areasService.deleteArea(this.areaToDelete.are_id).subscribe(
@@ -90,9 +103,9 @@ export class AreasComponent implements OnInit {
       );
     }
   }
-  
+
   closeDeleteConfirmModal() {
     this.showDeleteConfirmModal = false;
     this.areaToDelete = null;
-  } 
+  }
 }

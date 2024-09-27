@@ -1,36 +1,36 @@
-<app-toolbar></app-toolbar>
+<app-search-areas (searchEvent)="filterAreas($event)"></app-search-areas>
 <div class="container-box">
-    <main class="table" id="customers_table">
-      <section class="table-header">
-          <h1>Áreas</h1>
-              <button class="add-btn" (click)="openModal()"><i class="bi bi-plus-circle"></i>Agregar</button>
-      </section>
-      <section class="table-body">
-          <table>
-              <thead>
-                <tr>
-                    <th>Nombre del área</th>
-                    <th>Presupuesto límite</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let area of areas">
-                    <td>{{ area.are_name }}</td>
-                    <td>{{ area.are_limit | currency }}</td>
-                    <td>
-                      <button (click)="editArea(area)" class="edit-btn"><i class="bi bi-pencil-square"></i></button>
-                    </td>
-                    <td>
-                      <button (click)="openDeleteConfirmModal(area)" class="delete-btn"><i class="bi bi-trash3-fill"></i></button>
-                    </td>
-                  </tr>
-              </tbody>
-          </table>
-      </section>
+  <main class="table" id="customers_table">
+    <section class="table-header">
+      <h1>Áreas</h1>
+      <button class="add-btn" (click)="openModal()"><i class="bi bi-plus-circle"></i>Agregar</button>
+    </section>
+    <section class="table-body">
+      <table>
+        <thead>
+          <tr>  
+            <th>Nombre del área</th>
+            <th>Presupuesto límite</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let area of filteredAreas"> <!-- Aquí usamos filteredAreas -->
+            <td>{{ area.are_name }}</td>
+            <td>{{ area.are_limit | currency }}</td>
+            <td>
+              <button (click)="editArea(area)" class="edit-btn"><i class="bi bi-pencil-square"></i></button>
+            </td>
+            <td>
+              <button (click)="openDeleteConfirmModal(area)" class="delete-btn"><i class="bi bi-trash3-fill"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
-  </div>
+</div>
 
   <app-area-modal 
   [showModal]="showModal"

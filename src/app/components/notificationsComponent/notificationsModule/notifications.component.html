@@ -1,0 +1,14 @@
+<app-search-notifications (searchEvent)="filterNews($event)"></app-search-notifications>
+<div class="not-box">
+  <div class="notification" *ngFor="let item of filteredNews"> <!-- Cambiar a filteredNews -->
+    <h1><strong>Fecha:</strong> {{ item.new_date | date }}</h1>
+    <h2>{{ item.new_description }}</h2>
+    <div class="flex">
+      <p>  
+        {{ item.Person.per_name }} {{ item.Person.per_lastname }}
+        <span *ngIf="item.new_description === 'Solicitud actualizada'">ha editado una solicitud.</span>
+        <span *ngIf="item.new_description === 'Nueva solicitud creada'">ha creado una nueva solicitud.</span>
+      </p> 
+    </div>
+  </div>
+</div>

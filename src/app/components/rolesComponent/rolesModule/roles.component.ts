@@ -9,6 +9,7 @@ import { RolesService } from '../../../services/rolesService/roles.service';
 export class RolesComponent implements OnInit {
   roles: any[] = [];
   areas: any[] = [];
+  filteredRoles: any[] = []; // Inicializamos esta propiedad
   showModal = false;
   showDeleteModal = false;
   rolToDelete: number | null = null;
@@ -30,6 +31,7 @@ export class RolesComponent implements OnInit {
     this.rolService.getAllRoles().subscribe(
       (data) => {
         this.roles = data;
+        this.filteredRoles = data; // Inicializamos filteredRoles con los datos cargados
       },
       (error) => {
         console.error('Error fetching roles:', error);
@@ -45,6 +47,17 @@ export class RolesComponent implements OnInit {
       (error) => {
         console.error('Error fetching areas:', error);
       }
+    );
+  }    
+
+  filterRoles(searchTerm: string) {
+    if (!searchTerm) {
+      this.filteredRoles = this.roles; // Si no hay término, mostrar todos los roles
+      return;
+    }
+    
+    this.filteredRoles = this.roles.filter(rol =>
+      rol.rol_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
@@ -83,7 +96,7 @@ export class RolesComponent implements OnInit {
         console.error('Error deleting role:', error);
       }
     );
-  }
+  } 
 
   confirmDeleteRol(rolId: number) {
     this.rolToDelete = rolId;

@@ -9,6 +9,7 @@ import { PersonsService } from '../../../services/personsService/persons.service
 export class PersonsComponent implements OnInit {
   persons: any[] = [];
   roles: any[] = [];  // Asegúrate de cargar los roles disponibles
+  filteredPersons: any[] = []; // Nueva propiedad para la lista filtrada
   showModal = false;
   isEditMode = false;
   currentPerson = {
@@ -37,11 +38,20 @@ export class PersonsComponent implements OnInit {
   loadPersons() {
     this.personService.getPersons().subscribe(
       (data) => {
+        this.filteredPersons = data;
         this.persons = data;
       },
       (error) => {
         console.error('Error fetching persons:', error);
       }
+    );
+  }
+
+  filterPersons(searchTerm: string) {
+    this.filteredPersons = this.persons.filter(person => 
+      person.per_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      person.per_lastname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      person.per_mail.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
@@ -139,3 +149,4 @@ confirmDelete() {
   }
 }
 }
+ 
