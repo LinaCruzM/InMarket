@@ -11,6 +11,7 @@ import { RolesComponent } from './components/rolesComponent/rolesModule/roles.co
 import { TypesSolicitudeComponent } from './components/typesSolicitudeComponent/typesModule/types-solicitude.component';
 import { CurrenciesComponent } from './components/currenciesComponent/currenciesModule/currencies.component';
 import { SuppliersComponent } from './components/suppliersComponent/suppliersModule/suppliers.component';
+import { PasswordModuleComponent } from './components/AuthComponent/passwordModule/password-module.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,14 @@ const routes: Routes = [
   {
     path: 'suppliers',
     component: SuppliersComponent
+  },
+  {
+    path: 'reset', 
+    component: ResetComponent
+  },
+  {
+    path: 'reset/password', 
+    component: PasswordModuleComponent
   }
 ];
 

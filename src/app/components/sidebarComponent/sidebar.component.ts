@@ -61,9 +61,8 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  // Método para verificar la ruta y ocultar la barra lateral en login
   checkRoute() {
-    if (this.router.url === '/login' || this.router.url === '/resetPassword') {
+    if (this.router.url === '/login' || this.router.url === '/reset/password' || this.router.url === '/resetPassword') {
       this.showSidebar = false;
       this.closeSidenav();
     } else {
